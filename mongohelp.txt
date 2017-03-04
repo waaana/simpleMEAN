@@ -1,0 +1,16 @@
+// Run mongod
+// Run mongod
+
+use <database_name> - creates database_name
+db - shows the database in use
+show dbs - shows all dbs, that have database
+db.dropDatabase() - drops selected db
+db.createCollection("collection1")
+show collections - displays collections in the selected db
+db.<db_name>.insert({any object here that will be inserted})
+db.<db_name>.find()
+db.<db_name>.find().pretty()
+db.<db_name>.update({"username":"Tom"}, {$set:{"username":"Nancy"}})
+db.<db_name>.drop() - drops the collections
+
+mongoose.connect(mongodb://localhost/<database_name>)

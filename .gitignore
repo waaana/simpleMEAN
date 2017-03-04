@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+/app
+/server
+/public/js/local.js
+/public/js/local.js.map
+/src/modules/socket.ts
+/docs
+.idea/
+/.gtm/
+/spec/coverage

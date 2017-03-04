@@ -1,0 +1,18 @@
+<h1>Articles</h1>
+<form ng-submit="post()">
+    <input required type="text" placeholde="Your Name" ng-model="newArticle.username" /><br/>
+    <input required type="text" placeholde="Your Name" ng-model="newArticle.title" /> <br/>
+    <textarea required maxlength="200" placeholder="Article text" rows="3" ng-model="newArticle.text"></textarea>
+    <input class="button" type="submit" value="Post"/>
+</form>
+
+<div id="articles-posted">
+    <h2>Articles posted</h2>
+    <div ng-repeat="art in articles | orderBy:'timestamp'">
+        <h3 ng-bind="art.title"></h3>
+        <p ng-bind="art.text"></p>
+        <p>
+            <small> Posted by {{art.username}} at {{art.timestamp | date: 'medium'}}</small>
+        </p>
+    </div>
+</div>
