@@ -15,7 +15,16 @@ $stateProvider
       .state('about', {
     	  url: "/about",
     	  templateUrl: "about.html",
-
+      })
+      .state('signup', {
+    	  url: "/signup",
+    	  templateUrl: "signup.html",
+        controller: "authController"
+      })
+      .state('signin', {
+    	  url: "/signin",
+    	  templateUrl: "signin.html",
+        controller: "authController"
       })
       .state('404', {
     	  url: "/404",

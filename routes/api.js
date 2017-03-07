@@ -10,6 +10,18 @@ router.get ('/product/:id', (req,res) => {
     res.send ('get details for product: ' + req.params.id);
 });*/
 
+router.use('/articles', (req, res, next) => {
+    if(req.method === 'GET') {
+        return next();
+    }
+    else if (req.isAuthenticated()) {
+        return next();
+    }
+    else {
+        res.send({status: 'Authentication Failure'});
+    }
+});
+
 router.get('/articles', (req, res, next) => {
     Article.find((err, articles)=> {
         if (err) {
@@ -40,6 +52,33 @@ router.post('/articles/', (req, res, next) => {
        return res.json(article);
    })
 });
+
+router.delete('/articles/:id', (req, res, next) => {
+    Article.remove({_id: req.params.id}, (err, article) => {
+        if (err) {
+            return res.send(err);
+        }
+        res.json({message: 'Successfully deleted'});
+    })
+});
+
+router.put('/articles', (req, res, next) => {
+    Article.findOne({_id: req.body._id}, (err, article) =>{
+        if (err) {
+            return res.send(err);
+        }
+        article.username = req.body.username;
+        article.title = req.body.title;
+        article.text = req.body.text;
+        article.timestamp = req.body.timestamp;
+        article.save(err => {
+            if (err) {
+                return res.send(err);
+            }
+            res.json({message: 'article updated'});
+        })
+    })
+})
 
 /*router.put('/articles/:id', (req, res, next) => {
     res.end('Updates the details of article with id: ' + req.params.id + ' in the database');

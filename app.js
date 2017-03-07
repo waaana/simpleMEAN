@@ -7,11 +7,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var session = require('express-session');
+var LocalStrategy = require('passport-local').Strategy;
+var bCrypt = require('bcrypt-nodejs');
+
 require('./models/articles');
+require('./models/users');
 mongoose.connect('mongodb://localhost/articles')
 
 var api = require('./routes/api');
 var index= require('./routes/index');
+var authenticate = require('./routes/authenticate')(passport);
 
 var app = express();
 
@@ -24,13 +31,22 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+// to use session module
+app.use(session({secret: 'blabla'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+// 2 lines added application level midleware
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.use('/api', api);
 app.use('/', index);
+app.use('/api', api);
+app.use('/auth', authenticate)
+
+var initPassport = require('./passport-initialize');
+initPassport(passport);
 
 app.use (function (req, res, next) {
   console.log('Request received');

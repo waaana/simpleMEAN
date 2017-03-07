@@ -2,9 +2,11 @@
     <head>
         <title>Articles</title>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-resource.js"></script>
         <script src="lib/angular-ui-router.min.js"></script>
         <script src="javascripts/articleApp.js"></script>
         <script src="javascripts/config.js"></script>
+        <script src="javascripts/auth.js"></script>
         <script>
             angular.element(document).ready(function() {
                 angular.bootstrap(document, ['articleApp'], {})
@@ -12,8 +14,17 @@
         </script>
     </head>
     <body>
-            <button ui-sref="home">Main</button>
+            <button ui-sref="home">Articles</button>
             <button ui-sref="about">About</button>
+            <span ng-if="!authenticated">
+                <button ui-sref="signup">Sign up</button>
+                <button ui-sref="signin">Sign in</button>
+            </span>
+            <span ng-if="authenticated">
+                Welcome {{current_user}}
+                <button ng-click="signout()">Sign Out</button>
+            </span>
+            
             <ui-view></ui-view>
     </body>
 </html>
