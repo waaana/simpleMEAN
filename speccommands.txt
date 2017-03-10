@@ -1,0 +1,21 @@
+for server side testing-> npm install
+-g mocha
+chai
+request
+
+for client side testing-> npm install
+-g karma-cli
+karma
+karma-jasmine
+angular
+angular-mocks
+
+config test runner:
+karma init
+
+node_modules/angular/angular.js
+node_modules/angular-mocks/angular-mocks.js
+app/*.js
+test/*.js
+
+==> karma.conf.js created

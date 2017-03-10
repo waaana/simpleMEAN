@@ -15,10 +15,15 @@ var bCrypt = require('bcrypt-nodejs');
 require('./models/articles');
 require('./models/users');
 mongoose.connect('mongodb://localhost/articles')
+var calculator = require('./calculator');
 
 var api = require('./routes/api');
 var index= require('./routes/index');
 var authenticate = require('./routes/authenticate')(passport);
+
+var configuration = require("./config");
+var conf = new configuration();
+console.log(conf.DB_URI);
 
 var app = express();
 
@@ -37,6 +42,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.get('/add', function (req, res, next){
+  var x = parseInt(req.query.x);
+  var y = parseInt(req.query.y);
+  var sum = calculator.add(x, y);
+  res.send({"sum": sum});
+});
+
+app.get('/subtract', function (req, res, next){
+  var x = parseInt(req.query.x);
+  var y = parseInt(req.query.y);
+  var diff = calculator.subtract(x, y);
+  res.send({"diff": diff});
+});
+
 // 2 lines added application level midleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -44,6 +65,12 @@ app.use(passport.session());
 app.use('/', index);
 app.use('/api', api);
 app.use('/auth', authenticate)
+
+
+
+
+
+
 
 var initPassport = require('./passport-initialize');
 initPassport(passport);

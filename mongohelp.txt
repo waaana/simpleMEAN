@@ -14,3 +14,5 @@ db.<db_name>.update({"username":"Tom"}, {$set:{"username":"Nancy"}})
 db.<db_name>.drop() - drops the collections
 
 mongoose.connect(mongodb://localhost/<database_name>)
+
+express --ejs . - creates boilerplate
