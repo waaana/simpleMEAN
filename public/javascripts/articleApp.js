@@ -1,4 +1,4 @@
-var app = angular.module('articleApp', ['ui.router', 'ngResource']);
+var app = angular.module('articleApp', ['ui.router', 'ngResource', 'ngMock']);
 
 app.run(($http, $rootScope) => {
     $rootScope.authenticated = false;
