@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "mocha ./test/ --reporter spec"
+    "test": "mocha ./test/ --reporter spec",
+    "build": "gulp convertPug"
   },
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -18,9 +19,12 @@
     "morgan": "~1.7.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "pug": "^2.0.0-beta11",
     "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-pug": "^3.3.0",
     "karma-chrome-launcher": "^2.0.0"
   }
 }
